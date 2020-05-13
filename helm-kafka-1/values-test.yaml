@@ -1,0 +1,4 @@
+kafka
+  replicas: 5
+zookeeper:
+  replicas: 3
