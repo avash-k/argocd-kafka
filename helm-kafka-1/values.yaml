@@ -31,7 +31,7 @@ kafka:
   storageType: persistent-claim
   storageSize: 20Gi
   claimDeletePolicy: false
-  storageClass: ibmc-file-retain-gold
+  storageClass: mysql-sc   ### ibmc-file-retain-gold
   userName: my-user
 zookeeper:
   replicas: 2
