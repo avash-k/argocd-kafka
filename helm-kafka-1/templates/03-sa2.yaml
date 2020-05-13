@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: {{ .Values.kafka.clusterName }}-kafka
+  namespace: {{ .Values.resources.namespace }}
+  labels:
+    app: strimzi
+    release: {{ .Release.Name }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+imagePullSecrets:
+- name: {{ .Values.image.secretName }}
+
+

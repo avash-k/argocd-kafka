@@ -1,0 +1,62 @@
+apiVersion: kafka.strimzi.io/v1beta1
+kind: KafkaUser
+metadata:
+  name: {{ .Values.kafka.userName }}
+  namespace: {{ .Values.resources.namespace }}
+  labels:
+    strimzi.io/cluster: {{ .Values.kafka.clusterName }}
+    release: {{ .Release.Name }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+  annotations:
+    "helm.sh/hook": "{{ .Values.hooks.lastinstallPriority }},{{ .Values.hooks.lastupgradePriority }}"
+    "helm.sh/hook-weight": "15"
+spec:
+  authentication:
+    type: {{ .Values.kafka.clientAuthType }}
+  authorization:
+    type: {{ .Values.kafka.aclAuthType }}
+    acls:
+      - resource:
+          type: topic
+          name: test
+          pattern: literal
+        operation: All
+        host: "*"
+      - resource:
+          type: topic
+          name: testing
+          pattern: literal
+        operation: All
+        host: "*"
+      - resource:
+          type: topic
+          name: Alert
+          patternType: literal
+        operation: All
+        host: "*"
+      - resource:
+          type: topic
+          name: Event
+          patternType: literal
+        operation: All
+        host: "*"
+      - resource:
+          type: topic
+          name: Trip
+          patternType: literal
+        operation: All
+        host: "*"
+
+      - resource:
+          type: group
+          name: kafka
+          patternType: literal
+        operation: Read
+        host: "*"
+      - resource:
+          type: group
+          name: "*"
+          patternType: literal
+        operation: Read
+        host: "*"
+

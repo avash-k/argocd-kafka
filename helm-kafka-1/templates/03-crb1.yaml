@@ -1,0 +1,17 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: strimzi-cluster-operator
+  labels:
+    app: strimzi
+    release: {{ .Release.Name }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+subjects:
+- kind: ServiceAccount
+  name: strimzi-cluster-operator
+  namespace: {{ .Values.resources.namespace }}
+roleRef:
+  kind: ClusterRole
+  name: strimzi-cluster-operator-global
+  apiGroup: rbac.authorization.k8s.io
+

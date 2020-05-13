@@ -1,0 +1,66 @@
+apiVersion: kafka.strimzi.io/v1beta1
+kind: Kafka
+metadata:
+  name: {{ .Values.kafka.clusterName }}
+  namespace: {{ .Values.resources.namespace }}
+  labels:
+    release: {{ .Release.Name }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+  annotations:
+    "helm.sh/hook": "{{ .Values.hooks.lastinstallPriority }},{{ .Values.hooks.lastupgradePriority }}"
+    "helm.sh/hook-weight": "10"
+spec:
+  kafka:
+    template:
+      pod:
+        securityContext:
+          runAsUser: 0
+          runAsGroup: 0
+          fsGroup: 0
+    version: {{ .Values.kafka.version }}  
+    replicas: {{ .Values.kafka.replicas }}
+    listeners:
+      tls:  
+        authentication: 
+          type: {{ .Values.kafka.clientAuthType }}
+      external:
+        type: {{ .Values.kafka.exposeType }}
+        tls: {{ .Values.kafka.sslExpose }}
+        authentication:
+          type: {{ .Values.kafka.clientAuthType }}
+    authorization:
+      type: {{ .Values.kafka.aclAuthType }}
+    config:
+      offsets.topic.replication.factor: {{ .Values.kafka.replicas }}
+      transaction.state.log.replication.factor: {{ .Values.kafka.replicas }}
+      transaction.state.log.min.isr: 2
+      log.message.format.version: "{{ .Values.kafka.logVersion }}"
+    tlsSidecar:
+      logLevel: debug
+    storage:
+      type: {{ .Values.kafka.storageType }}
+      size: {{ .Values.kafka.storageSize }}
+      deleteClaim: {{ .Values.kafka.claimDeletePolicy }}
+      class: {{ .Values.kafka.storageClass }}
+  zookeeper:
+    template:
+      pod:
+        securityContext:
+          runAsUser: 0
+          runAsGroup: 0
+          fsGroup: 0
+    replicas: {{ .Values.zookeeper.replicas }}
+    tlsSidecar:
+      logLevel: debug
+    storage:
+      type: {{ .Values.zookeeper.storageType }}
+      size: {{ .Values.kafka.storageSize }}
+      deleteClaim: {{ .Values.kafka.claimDeletePolicy }}
+      class: {{ .Values.kafka.storageClass }}
+  entityOperator:
+    topicOperator: {}
+    userOperator: {}
+    tlsSidecar:
+      logLevel: debug
+
+

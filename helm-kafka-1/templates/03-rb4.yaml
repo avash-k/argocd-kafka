@@ -1,0 +1,22 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  labels:
+    app.kubernetes.io/instance: {{ .Values.kafka.clusterName }}
+    app.kubernetes.io/managed-by: strimzi-cluster-operator
+    app.kubernetes.io/name: strimzi
+    strimzi.io/cluster: {{ .Values.kafka.clusterName }}
+    strimzi.io/kind: Kafka
+    release: {{ .Release.Name }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+  name: strimzi-{{ .Values.kafka.clusterName }}-entity-user-operator
+  namespace: {{ .Values.resources.namespace }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: strimzi-entity-operator
+subjects:
+- kind: ServiceAccount
+  name: {{ .Values.kafka.clusterName }}-entity-operator
+  namespace: {{ .Values.resources.namespace }}
+

@@ -1,0 +1,10 @@
+Thanks for installing the Strimzi Kafka Operator, Kafka-Zookeeper Cluster, Kafka User
+
+Check the coming up of mentioned kafka resources with
+
+kubectl -n {{ .Values.resources.namespace }} get po -w
+
+Check if the mentioned kafka resources are running with
+
+kubectl -n {{ .Values.resources.namespace }} get all
+
