@@ -7,10 +7,10 @@ hooks:
   lastinstallPriority: post-install
   lastupgradePriority: post-upgrade
 image:
-  secretName: icr-secret
-  registry: us.icr.io
-  username: iamapikey
-  password: mUN5OKR0tHLf7LgiFHtLZ8nh8XamXnJ7_IS46j0yb1cl
+  secretName: docker-secret
+  registry: <docker-hub>
+  username: avashkumar
+  password: ARfit@247
 operator:
   image:
     repository: strimzi/operator
