@@ -20,7 +20,7 @@ kafka:
   clusterName: my-cluster
   version: 2.4.0
   logVersion: 2.4
-  replicas: 3
+  replicas: 5
   clientAuthType: tls
   sslExpose: true
   exposeType: nodeport
