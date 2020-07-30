@@ -8,37 +8,37 @@ hooks:
   lastupgradePriority: post-upgrade
 image:
   secretName: docker-secret
-  registry: <docker-hub>
+  registry: https://index.docker.io/v1/
   username: avashkumar
   password: ARfit@247
 operator:
   image:
-    repository: strimzi/operator
+    repository: avashkumar/kafka-operator
     tag: 0.16.2
     pullPolicy: IfNotPresent
 kafka:
   clusterName: my-cluster
   version: 2.4.0
   logVersion: 2.4
-  replicas: 5
+  replicas: 3
   clientAuthType: tls
   sslExpose: true
   exposeType: loadbalancer
   aclAuthType: simple
   image:
-    repository: us.icr.io/msil_gen2_connect_dev/kafka-cluster
+    repository: avashkumar/kafka
     tag: 0.16.2
   storageType: persistent-claim
-  storageSize: 20Gi
+  storageSize: 1Gi
   claimDeletePolicy: false
-  storageClass: mysql-sc   ### ibmc-file-retain-gold
+  storageClass: my-storageclass   ### ibmc-file-retain-gold
   userName: my-user
 zookeeper:
   replicas: 2
   storageType: persistent-claim
-  storageSize: 20Gi
+  storageSize: 1Gi
   claimDeletePolicy: false
-  storageClass: ibmc-file-retain-gold
+  storageClass: my-storageclass   ### ibmc-file-retain-gold
  
 
 
