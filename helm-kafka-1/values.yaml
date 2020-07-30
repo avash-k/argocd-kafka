@@ -23,7 +23,7 @@ kafka:
   replicas: 3
   clientAuthType: tls
   sslExpose: true
-  exposeType: loadbalancer
+  exposeType: nodeport
   aclAuthType: simple
   image:
     repository: avashkumar/kafka
