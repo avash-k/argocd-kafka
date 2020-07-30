@@ -18,8 +18,7 @@ spec:
           runAsGroup: 0
           fsGroup: 0
     version: {{ .Values.kafka.version }}
-    replicas: 5
-    ###replicas: {{ .Values.kafka.replicas }}
+    replicas: {{ .Values.kafka.replicas }}
     listeners:
       tls:  
         authentication: 
