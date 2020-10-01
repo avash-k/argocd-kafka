@@ -1,7 +1,6 @@
 resources:
   namespace: kafka
 hooks:
-  customresources: crd-install
   firstinstallPriority: pre-install
   firstupgradePriority: pre-upgrade
   lastinstallPriority: post-install
